@@ -1,0 +1,14 @@
+{
+    "domain": "localhost",
+    "publicDomain": "sstatebb.com",
+    "port": 3000,
+    "cookie": "secret",
+    "analytics": false,
+    "twilioSID": "<sid>",
+    "twilioToken": "<auth token>",
+    "twilioNumber": "15555555555",
+    "ops": [],
+    "db": "testdb",
+    "phoneSalt": "<make me a random string>",
+    "disableSignups": false
+}
