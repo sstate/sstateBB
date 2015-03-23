@@ -1,6 +1,6 @@
 .DS_Store
 .idea/*
-dist/
+public/dist/
 node_modules
 local.json
 npm-debug.log
