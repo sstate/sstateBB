@@ -44,6 +44,7 @@
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
     "eslint": "^0.16.1",
+    "eslint-plugin-react": "^1.6.0",
     "jest-cli": "^0.2.2",
     "knex": "^0.7.6",
     "reactify": "^1.0.0",

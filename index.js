@@ -11,7 +11,8 @@ var auth = require('./lib/auth/auth');
 var schema = require('./lib/schema');
 var auth_services = require('./lib/auth/services');
 var db = require('./lib/db');
-var services = require('./lib/services')
+var services = require('./lib/services');
+var admin = require('./lib/admin');
 
 auth.getUserRoles();
 
@@ -87,6 +88,16 @@ var routes = [
     method: 'POST',
     path: '/users/new',
     handler: auth_services.new_user
+  },
+  {
+    method: 'GET',
+    path: '/admin',
+    handler: admin.index
+  },
+  {
+    method: 'GET',
+    path: '/admin/users',
+    handler: admin.index
   }
 ];
 

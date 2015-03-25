@@ -20,17 +20,23 @@ var Layout = React.createClass({
     var View = this.props.view ? this.props.view : Router.RouteHandler;
     return (
         <div>
-          <header>
-            <p><a href="/">sstateBB</a></p>
-            <ul>
+          <div className="header">
+            <div className="container">
+              <h1 className="logo"><a href="/">sstateBB</a></h1>
+              <ul className="nav">
               {!this.props.data.sessionId ? <li><a href="/login">login</a></li> : ''}
               {!this.props.data.sessionId ? <li><a href="/register">register</a></li> : ''}
-              {this.props.data.sessionId ? <li><a href="/logout">logout</a></li> : ''}
-            </ul>
+              {this.props.data.sessionId ? <li>Hi, {this.props.data.sessionUsername} <a href="/logout">logout</a></li> : ''}
+              </ul>
             {!this.props.data.sessionId ?
                 <Login data={this.props.data}/> : ''}
-          </header>
-          <View data={this.props.data} />
+            </div>
+          </div>
+          <div className="container">
+            <div className="content">
+              <View data={this.props.data} />
+            </div>
+          </div>
         </div>
     );
   }

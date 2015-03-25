@@ -1,9 +1,11 @@
 {
   "env": {
     "node": true,
-    "browser": true,
-    "es6"
+    "browser": true
   },
+  "plugins": [
+    "react"
+  ],
   "ecmaFeatures": {
     "blockBindings": true,
     "forOf": true,
