@@ -4,3 +4,4 @@ public/dist/
 node_modules
 local.json
 npm-debug.log
+test.js

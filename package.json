@@ -51,6 +51,7 @@
     "watchify": "^2.3.0"
   },
   "dependencies": {
+    "bluebird": "^2.9.15",
     "bookshelf": "^0.7.9",
     "boom": "~2.6.1",
     "cookie": "^0.1.2",

@@ -1,4 +1,7 @@
+'use strict';
+
 var db = require('./../lib/db');
+var User = require('./users').Model;
 
 var Role = db.Model.extend({
   tableName: 'user_roles'

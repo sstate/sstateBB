@@ -25,7 +25,7 @@ var Admin = React.createClass({
       <div>
         <h2>Admin</h2>
         <AdminNav />
-        <View />
+        <View data={this.props.data} />
       </div>
     );
   }

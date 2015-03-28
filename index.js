@@ -97,7 +97,7 @@ var routes = [
   {
     method: 'GET',
     path: '/admin/users',
-    handler: admin.index
+    handler: admin.users
   }
 ];
 
