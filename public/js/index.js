@@ -24,6 +24,7 @@ var routes = (
       <Router.DefaultRoute handler={Index} />
       <Router.Route name="login" handler={Login} />
       <Router.Route name="admin" handler={AdminController}>
+        <Router.NotFoundRoute handler={AdminIndex}/>
         <Router.Route name="users" path="users" handler={AdminUsers} />
       </Router.Route>
     </Router.Route>

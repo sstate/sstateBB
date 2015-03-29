@@ -1,7 +1,8 @@
 var db = require('./../lib/db');
 
 var Status = db.Model.extend({
-  tableName: 'status'
+  tableName: 'status',
+  hasTimestamps: true
 });
 
 var Statuses = db.Collection.extend({

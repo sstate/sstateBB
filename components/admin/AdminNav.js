@@ -20,11 +20,12 @@ var AdminNav = React.createClass({
 
   render: function(){
     return (
-        <div>
-            <ul className="nav">
-                <li><a href="/admin/users">users</a></li>
-            </ul>
-        </div>
+      <div>
+        <ul className="nav">
+          <li><a href="/admin">admin</a></li>
+          <li><a href="/admin/users">users</a></li>
+        </ul>
+      </div>
     );
   }
 });

@@ -6,6 +6,7 @@ var db = require('./../lib/db');
 
 var Topic = db.Model.extend({
   tableName: 'topics',
+  hasTimestamps: true,
   author_id: function(){
     return this.belongsTo(user, 'bb_users');
   },

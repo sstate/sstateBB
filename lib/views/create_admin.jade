@@ -8,9 +8,9 @@ block content
     input(type="hidden" name="crumb" value="#{crumb}")
     select(name="user_role")
       for user_role in user_roles
-        option(value="#{user_role.id}") #{user_role.name}
+        option(value="#{user_role.name}") #{user_role.name}
     select(name="status")
       for status in statuses
-        option(value="#{status.id}") #{status.name}
+        option(value="#{status.name}") #{status.name}
     button(type="submit") submit
   div(id='main') !{reactComponent}

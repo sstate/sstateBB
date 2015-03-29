@@ -4,7 +4,8 @@ var db = require('./../lib/db');
 var User = require('./users').Model;
 
 var Role = db.Model.extend({
-  tableName: 'user_roles'
+  tableName: 'user_roles',
+  hasTimestamps: true
 });
 
 var User_Roles = db.Collection.extend({

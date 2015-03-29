@@ -5,6 +5,7 @@ var path = require('path');
 var Hapi = require('hapi');
 var Joi = require('joi');
 var Boom = require('boom');
+var _ = require('lodash');
 
 var conf = require('./lib/conf');
 var auth = require('./lib/auth/auth');
@@ -13,8 +14,7 @@ var auth_services = require('./lib/auth/services');
 var db = require('./lib/db');
 var services = require('./lib/services');
 var admin = require('./lib/admin');
-
-auth.getUserRoles();
+var apiUserRoutes = require('./lib/api/routes/users');
 
 var server = new Hapi.Server();
 
@@ -86,6 +86,11 @@ var routes = [
   },
   {
     method: 'POST',
+    path: '/create_admin/new',
+    handler: auth_services.createAdminNew
+  },
+  {
+    method: 'POST',
     path: '/users/new',
     handler: auth_services.new_user
   },
@@ -127,8 +132,8 @@ server.ext('onPreResponse', function (request, reply) {
       }
     }
 
-    if (['/ban', '/unban', '/fixnames'].indexOf(request.path) > -1) {
-      if (!!request.session.get('op') === false) {
+    if (request.path.indexOf('/admin') > -1) {
+      if (request.session.get('user_role') !== 'admin') {
         return reply.redirect('/');
       }
     }
@@ -191,7 +196,7 @@ server.register([{
   }
 });
 
-server.route(routes);
+server.route(_.union(routes, apiUserRoutes));
 server.start(function (err) {
   if (err) {
     throw new Error(err.message);
