@@ -22,7 +22,7 @@ exports.up = function(knex, Promise) {
     table.string('title').notNullable();
     table.date('published_at').notNullable();
     table.integer('author_id').references('bb_users.id').notNullable();
-    table.integer('status').references('status.id').notNullable();
+    table.string('status').notNullable();
     table.timestamps();
   }).createTable('threads', function(table){
     table.increments('id').primary().notNullable();
@@ -30,14 +30,14 @@ exports.up = function(knex, Promise) {
     table.integer('topic').references('topics.id').notNullable();
     table.date('published_at').notNullable();
     table.integer('author_id').references('bb_users.id').notNullable();
-    table.integer('status').references('status.id').notNullable();
+    table.string('status').notNullable();
     table.timestamps();
   }).createTable('posts', function(table){
     table.increments('id').primary();
     table.string('body', [500]).notNullable();
     table.integer('thread_id').references('threads.id').notNullable();
     table.integer('author_id').references('bb_users.id').notNullable();
-    table.integer('status').references('status.id').notNullable();
+    table.string('status').notNullable();
     table.timestamps();
   }).raw('ALTER TABLE bb_users ADD FOREIGN KEY (threads) REFERENCES threads(id) ON DELETE CASCADE;')
     .raw('ALTER TABLE bb_users ADD FOREIGN KEY (posts) REFERENCES posts(id) ON DELETE CASCADE;')
