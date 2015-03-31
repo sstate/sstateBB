@@ -20,17 +20,28 @@ var Layout = React.createClass({
     var View = this.props.view ? this.props.view : Router.RouteHandler;
     return (
         <div>
-          <div className="header">
+          <header className="banner">
             <div className="container">
-              <h1 className="logo"><a href="/">sstateBB</a></h1>
-              <ul className="nav">
-              {!this.props.data.sessionId ? <li><a href="/login">login</a></li> : ''}
-              {!this.props.data.sessionId ? <li><a href="/register">register</a></li> : ''}
-              {this.props.data.sessionId ? <li>Hi, {this.props.data.sessionUsername} <a href="/logout">logout</a></li> : ''}
-              </ul>
-            {!this.props.data.sessionId ?
-                <Login data={this.props.data}/> : ''}
+              <div className="cf">
+                {!this.props.data.sessionId ?
+                    <ul className="list-unstyled list-inline cf pull-right">
+                      <li><a href="/login" className="button button-primary">login</a></li>
+                      <li><a href="/register" className="button button-primary">register</a></li>
+                    </ul>
+                  :
+                  <p className="pull-right spacing">Hi, {this.props.data.sessionUsername}! <a href="/logout">logout</a></p>
+                }
+              </div>
+              <h1><a href="/">sstateBB</a></h1>
+              <p>this is a bulletin booard</p>
             </div>
+          </header>
+          <div className="container">
+            <nav className="top-nav top-nav-light cf" role="navigation">
+              <ul className="list-unstyled list-inline cf">
+                {this.props.data.user_role === 'admin' ? <li><a href="/admin">admin</a></li> : ''}
+              </ul>
+            </nav>
           </div>
           <div className="container">
             <div className="content">

@@ -11,8 +11,8 @@
   "scripts": {
     "start": "npm run build-styles & browserify ./public/js/index.js -o ./public/dist/_bundle.js & nodemon ./index.js",
     "dev": "npm run watch-styles & watchify ./public/js/index.js -o ./public/dist/_bundle.js & nodemon ./index.js",
-    "watch-styles": "stylus -c -w ./public/styl/main.styl -o ./public/dist/_bundle.min.css",
-    "build-styles": "stylus -c ./public/styl/main.styl -o ./public/dist/bundle.min.css",
+    "watch-styles": "stylus -u yeticss -c -w ./public/styl/main.styl -o ./public/dist/_bundle.min.css",
+    "build-styles": "stylus -u yeticss -c ./public/styl/main.styl -o ./public/dist/bundle.min.css",
     "lint": "eslint ./",
     "test": "jest"
   },
@@ -48,7 +48,8 @@
     "jest-cli": "^0.2.2",
     "knex": "^0.7.6",
     "reactify": "^1.0.0",
-    "watchify": "^2.3.0"
+    "watchify": "^2.3.0",
+    "yeticss": "^6.0.2"
   },
   "dependencies": {
     "bluebird": "^2.9.15",
@@ -68,6 +69,7 @@
     "nconf": "^0.7.1",
     "node-jsx": "^0.12.4",
     "nodemon": "^1.3.7",
+    "oauth": "^0.9.12",
     "pg": "^4.3.0",
     "quick-auth-utils": "^2.0.2",
     "react": "^0.12.2",

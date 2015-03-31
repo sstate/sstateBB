@@ -103,6 +103,11 @@ var routes = [
     method: 'GET',
     path: '/admin/users',
     handler: admin.users
+  },
+  {
+    method: 'GET',
+    path: '/auth/twitter',
+    handler: admin.users
   }
 ];
 
