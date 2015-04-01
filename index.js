@@ -60,16 +60,6 @@ var routes = [
     handler: auth_services.logout
   },
   {
-    method: 'GET',
-    path: '/login',
-    handler: auth_services.login
-  },
-  {
-    method: 'GET',
-    path: '/register',
-    handler: auth_services.register
-  },
-  {
     method: 'POST',
     path: '/authenticate',
     handler: auth_services.authenticate,
@@ -90,11 +80,6 @@ var routes = [
     handler: auth_services.createAdminNew
   },
   {
-    method: 'POST',
-    path: '/users/new',
-    handler: auth_services.new_user
-  },
-  {
     method: 'GET',
     path: '/admin',
     handler: admin.index
@@ -106,8 +91,18 @@ var routes = [
   },
   {
     method: 'GET',
+    path: '/auth/a',
+    handler: auth_services.admin_login
+  },
+  {
+    method: 'GET',
     path: '/auth/twitter',
-    handler: admin.users
+    handler: auth_services.twitter
+  },
+  {
+    method: 'GET',
+    path: '/auth/twitter/callback',
+    handler: auth_services.twitter_callback
   }
 ];
 
@@ -125,17 +120,11 @@ server.ext('onPreResponse', function (request, reply) {
     if (['/profile', '/messages', '/chat', '/posts', '/links', '/users',
           '/deleteaccount', '/post', '/profile/export.json',
           '/profile/export.csv'].indexOf(request.path) > -1) {
-      if (!request.session.get('user-id')) {
+      if (!request.session.get('session_id')) {
         return reply.redirect('/');
       }
     }
 
-    if (['/', '/messages', '/chat', '/posts', '/discover', '/links',
-          '/users', '/ban', '/unban', '/deleteaccount', '/post'].indexOf(request.path) > -1) {
-      if (request.session.get('user-id') && !request.session.get('username')) {
-        return reply.redirect('/profile');
-      }
-    }
 
     if (request.path.indexOf('/admin') > -1) {
       if (request.session.get('user_role') !== 'admin') {

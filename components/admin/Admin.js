@@ -1,7 +1,6 @@
 'use strict';
 var React = require('react');
 var Router = require('react-router');
-var AdminNav = require('./AdminNav');
 var Index = require('./Index');
 
 var Admin = React.createClass({
@@ -25,7 +24,6 @@ var Admin = React.createClass({
     return (
       <div>
         <h2><a href="/admin">Admin</a></h2>
-        <AdminNav />
         <View data={this.props.data} />
       </div>
     );

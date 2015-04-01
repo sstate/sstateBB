@@ -22,7 +22,7 @@ var AdminUsers = require('./../../components/admin/Users');
 var routes = (
     <Router.Route handler={Layout}>
       <Router.DefaultRoute handler={Index} />
-      <Router.Route name="login" handler={Login} />
+      <Router.Route name="auth_a" path="/auth/a" handler={Login} />
       <Router.Route name="admin" handler={AdminController}>
         <Router.NotFoundRoute handler={AdminIndex}/>
         <Router.Route name="users" path="users" handler={AdminUsers} />

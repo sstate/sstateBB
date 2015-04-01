@@ -3,14 +3,7 @@ block content
   p hello world
   form(action="/create_admin/new", method="post")
     input(type="email", name="email", value="", placeholder="email")
-    input(type="text", name="username", value="", placeholder="username")
     input(type="password", name="password", value="", placeholder="password")
     input(type="hidden" name="crumb" value="#{crumb}")
-    select(name="user_role")
-      for user_role in user_roles
-        option(value="#{user_role.name}") #{user_role.name}
-    select(name="status")
-      for status in statuses
-        option(value="#{status.name}") #{status.name}
     button(type="submit") submit
   div(id='main') !{reactComponent}

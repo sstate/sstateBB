@@ -23,13 +23,12 @@ var Layout = React.createClass({
           <header className="banner">
             <div className="container">
               <div className="cf">
-                {!this.props.data.sessionId ?
+                {!this.props.data.session_id ?
                     <ul className="list-unstyled list-inline cf pull-right">
-                      <li><a href="/login" className="button button-primary">login</a></li>
-                      <li><a href="/register" className="button button-primary">register</a></li>
+                      <li><a href="/auth/twitter" className="button button-primary">sign in with twitter</a></li>
                     </ul>
                   :
-                  <p className="pull-right spacing">Hi, {this.props.data.sessionUsername}! <a href="/logout">logout</a></p>
+                  <p className="pull-right spacing">Hi, {this.props.data.twitter_user.screen_name}! <a href="/logout">logout</a></p>
                 }
               </div>
               <h1><a href="/">sstateBB</a></h1>
@@ -39,7 +38,16 @@ var Layout = React.createClass({
           <div className="container">
             <nav className="top-nav top-nav-light cf" role="navigation">
               <ul className="list-unstyled list-inline cf">
-                {this.props.data.user_role === 'admin' ? <li><a href="/admin">admin</a></li> : ''}
+                <li><a href="/">index</a></li>
+                {this.props.data.user_role === 'admin' ?
+                  <li className="has-dropdown">
+                    <a href="/admin">admin</a>
+                    <div className="icon-arrow-down"></div>
+                    <ul className='list-unstyled dropdown cf'>
+                      <li><a href="/admin/users">users</a></li>
+                    </ul>
+                  </li>
+                  : ''}
               </ul>
             </nav>
           </div>

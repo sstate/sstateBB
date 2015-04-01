@@ -7,13 +7,19 @@ exports.up = function(knex, Promise) {
   }).createTable('user_roles', function(table){
     table.increments('id').primary().notNullable();
     table.string('name', [150]).unique().notNullable();
-  }).createTable('bb_users', function(table) {
+  }).createTable('bb_admins', function(table) {
     table.increments('id').primary().notNullable();
     table.string('email', [254]).unique().notNullable();
-    table.string('username', [20]).notNullable();
     table.string('password', [60]).notNullable();
+    table.timestamps();
+  }).createTable('bb_users', function(table) {
+    table.increments('id').primary().notNullable();
+    table.string('email', [254]);
+    table.string('username', [20]).notNullable();
     table.string('status').notNullable();
     table.string('user_role').notNullable();
+    table.string('twitter_id').notNullable();
+    table.string('avatar_url');
     table.integer('threads');
     table.integer('posts');
     table.timestamps();
@@ -41,7 +47,7 @@ exports.up = function(knex, Promise) {
     table.timestamps();
   }).raw('ALTER TABLE bb_users ADD FOREIGN KEY (threads) REFERENCES threads(id) ON DELETE CASCADE;')
     .raw('ALTER TABLE bb_users ADD FOREIGN KEY (posts) REFERENCES posts(id) ON DELETE CASCADE;')
-    .raw('CREATE UNIQUE INDEX CONCURRENTLY ON bb_users(email, username, password, status, user_role, created_at, updated_at)');
+    .raw('CREATE UNIQUE INDEX CONCURRENTLY ON bb_users(email, username, twitter_id, status, user_role, created_at, updated_at)');
 };
 
 //table.integer('threads').references('threads.id');

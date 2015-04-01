@@ -13,7 +13,6 @@ exports.seed = function(knex, Promise) {
 
     knex('user_roles').insert({name: 'reader'}),
     knex('user_roles').insert({name: 'moderator'}),
-    knex('user_roles').insert({name: 'admin'}),
-    knex.raw('CREATE UNIQUE INDEX CONCURRENTLY ON bb_users(email, username, password, status, user_role, created_at, updated_at)')
+    knex('user_roles').insert({name: 'admin'})
   );
 };
