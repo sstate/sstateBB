@@ -9,8 +9,8 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "npm run build-styles & browserify ./public/js/index.js -o ./public/dist/_bundle.js & nodemon ./index.js",
-    "dev": "npm run watch-styles & watchify ./public/js/index.js -o ./public/dist/_bundle.js & nodemon ./index.js",
+    "start": "NODE_ENV=PRODUCTION npm run build-styles & webpack & nodemon --exec babel-node -- ./index.js",
+    "dev": "NODE_ENV=DEV npm run watch-styles & webpack --progress --colors --watch & nodemon --exec babel-node -- ./index.js",
     "watch-styles": "stylus -u yeticss -c -w ./public/styl/main.styl -o ./public/dist/_bundle.min.css",
     "build-styles": "stylus -u yeticss -c ./public/styl/main.styl -o ./public/dist/bundle.min.css",
     "lint": "eslint ./",
@@ -40,15 +40,21 @@
     "react": "0.12.x"
   },
   "devDependencies": {
+    "babel": "^5.0.8",
     "babel-core": "^4.0.0",
+    "babel-loader": "^5.0.0",
     "babelify": "^5.0.4",
     "browserify": "^9.0.3",
+    "clean-css": "^3.1.9",
     "eslint": "^0.16.1",
     "eslint-plugin-react": "^1.6.0",
     "jest-cli": "^0.2.2",
+    "jsx-loader": "^0.13.1",
     "knex": "^0.7.6",
+    "react-hot-loader": "^1.2.4",
     "reactify": "^1.0.0",
     "watchify": "^2.3.0",
+    "webpack": "^1.7.3",
     "yeticss": "^6.0.2"
   },
   "dependencies": {
@@ -66,6 +72,9 @@
     "joi": "^6.0.8",
     "lcars": "^1.0.8",
     "lodash": "^3.5.0",
+    "lodash.foreach": "^3.0.2",
+    "lodash.merge": "^3.1.0",
+    "lodash.union": "^3.1.0",
     "nconf": "^0.7.1",
     "node-jsx": "^0.12.4",
     "nodemon": "^1.3.7",

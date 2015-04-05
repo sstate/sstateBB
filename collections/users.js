@@ -1,7 +1,8 @@
 'use strict';
 var threads = require('./threads').Model;
 var posts = require('./posts').Model;
-var _ = require('lodash');
+var each = require('lodash.foreach');
+var merge = require('lodash.foreach');
 var urlUtil = require('./../lib/api/util/url');
 
 var db = require('./../lib/db');
@@ -22,7 +23,7 @@ var User = db.Model.extend({
     return urlUtil.root()+'/api/users/'+this.get('id');
   },
   safe: function(){
-    return _.merge({
+    return merge({
       links: {
         self: this.apiUrl()
       },
@@ -69,7 +70,7 @@ var Users = db.Collection.extend({
       };
     }
     data.data = [];
-    _.each(this.models, function(model){
+    each(this.models, function(model){
       if (options.profile){
         data.data.push(model.safe());
       }else {

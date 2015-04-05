@@ -5,7 +5,7 @@ var path = require('path');
 var Hapi = require('hapi');
 var Joi = require('joi');
 var Boom = require('boom');
-var _ = require('lodash');
+var union = require('lodash.union');
 
 var conf = require('./lib/conf');
 var auth = require('./lib/auth/auth');
@@ -15,6 +15,7 @@ var db = require('./lib/db');
 var services = require('./lib/services');
 var admin = require('./lib/admin');
 var apiUserRoutes = require('./lib/api/routes/users');
+var apiTopicRoutes = require('./lib/api/routes/topics');
 
 var server = new Hapi.Server();
 
@@ -190,7 +191,8 @@ server.register([{
   }
 });
 
-server.route(_.union(routes, apiUserRoutes));
+server.route(union(routes, apiUserRoutes, apiTopicRoutes));
+
 server.start(function (err) {
   if (err) {
     throw new Error(err.message);

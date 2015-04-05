@@ -45,6 +45,7 @@ var Layout = React.createClass({
                     <div className="icon-arrow-down"></div>
                     <ul className='list-unstyled dropdown cf'>
                       <li><a href="/admin/users">users</a></li>
+                      <li><a href="/admin/topics">topics</a></li>
                     </ul>
                   </li>
                   : ''}

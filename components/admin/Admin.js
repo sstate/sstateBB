@@ -23,7 +23,6 @@ var Admin = React.createClass({
     var View = this.props.data.child_view ? this.props.data.child_view : Router.RouteHandler;
     return (
       <div>
-        <h2><a href="/admin">Admin</a></h2>
         <View data={this.props.data} />
       </div>
     );

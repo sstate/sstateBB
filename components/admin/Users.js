@@ -1,33 +1,50 @@
 'use strict';
-var _ = require('lodash');
 
 var React = require('react');
 
 var AdminUsers = React.createClass({
 
-  propTypes: {
-    //scroll: React.PropTypes.bool
-  },
-
-  getInitialState: function(){
-    return {};
-  },
-
-  componentDidMount: function(){
-  },
-
-  componentWillUnmount: function(){
-  },
-
   render: function(){
-    var users = this.props.data.users.map(function(user){
-      return (<li key={user.id}>{user.username} | {user.email} | {user.status} | {user.user_role}</li>);
+    var data = this.props.data;
+
+    //var userRoles = _.each(data.user_roles, function(role){
+    //  return (
+    //    <option value={role}>{role}</option>
+    //  );
+    //});
+    console.log(data.user_roles)
+    var users = data.users.map(function(user){
+      return (
+        <form id={'user-'+user.id} key={user.id}>
+          <select name="user_role">
+
+          </select>
+          <tr>
+            <td>{user.id}</td>
+            <td>{user.username}</td>
+            <td><input type="text" name="status" value={user.status}/></td>
+            <td><input type="text" name="user_role" value={user.user_role}/></td>
+            <td><button type="submit">save</button></td>
+          </tr>
+        </form>
+      );
     });
     return (
         <div>
-          <ul>
-            {users}
-          </ul>
+          <table className="table-outlined table-with-hover">
+            <thead>
+              <tr>
+                <th>#id</th>
+                <th>username</th>
+                <th>status</th>
+                <th>role</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {users}
+            </tbody>
+          </table>
         </div>
     );
   }
