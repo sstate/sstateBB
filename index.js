@@ -61,26 +61,6 @@ var routes = [
     handler: auth_services.logout
   },
   {
-    method: 'POST',
-    path: '/authenticate',
-    handler: auth_services.authenticate,
-    config: {
-      validate: {
-        payload: schema.login
-      }
-    }
-  },
-  {
-    method: 'GET',
-    path: '/create_admin',
-    handler: auth_services.createAdmin
-  },
-  {
-    method: 'POST',
-    path: '/create_admin/new',
-    handler: auth_services.createAdminNew
-  },
-  {
     method: 'GET',
     path: '/admin',
     handler: admin.index
@@ -89,11 +69,6 @@ var routes = [
     method: 'GET',
     path: '/admin/users',
     handler: admin.users
-  },
-  {
-    method: 'GET',
-    path: '/auth/a',
-    handler: auth_services.admin_login
   },
   {
     method: 'GET',
@@ -128,7 +103,7 @@ server.ext('onPreResponse', function (request, reply) {
 
 
     if (request.path.indexOf('/admin') > -1) {
-      if (request.session.get('user_role') !== 'admin') {
+      if (request.session.get('user_role').name !== 'admin') {
         return reply.redirect('/');
       }
     }

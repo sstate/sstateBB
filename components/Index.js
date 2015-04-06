@@ -23,7 +23,7 @@ var Login = React.createClass({
       if (this.props.data.twitter_user){
         return (
           <div>
-            <p><img src={this.props.data.avatar_url} /> {this.props.data.twitter_user.screen_name} {this.props.data.user_role}</p>
+            <p><img src={this.props.data.avatar_url} /> {this.props.data.twitter_user.screen_name} {this.props.data.user_role.name}</p>
           </div>
         );
       }

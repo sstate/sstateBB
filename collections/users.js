@@ -1,8 +1,10 @@
 'use strict';
-var threads = require('./threads').Model;
-var posts = require('./posts').Model;
+var Thread = require('./threads').Model;
+var Post = require('./posts').Model;
+var user_role = require('./user_roles').Model;
+var status = require('./status').Model;
 var each = require('lodash.foreach');
-var merge = require('lodash.foreach');
+var merge = require('amp-merge');
 var urlUtil = require('./../lib/api/util/url');
 
 var db = require('./../lib/db');
@@ -11,10 +13,10 @@ var User = db.Model.extend({
   tableName: 'bb_users',
   hasTimestamps: true,
   posts: function(){
-    return this.belongsTo(posts, 'posts');
+    return this.hasMany(Post, 'author_id');
   },
   threads: function(){
-    return this.belongsTo(threads, 'threads');
+    return this.hasMany(Thread, 'author_id');
   },
   latest_threads: function(){
     return this.threads().query('orderBy', 'id').query('limit', '10');
@@ -22,29 +24,29 @@ var User = db.Model.extend({
   apiUrl: function(){
     return urlUtil.root()+'/api/users/'+this.get('id');
   },
+  user_role: function(){
+    return this.belongsTo(user_role, 'user_role');
+  },
+  status: function(){
+    return this.belongsTo(status, 'status');
+  },
   safe: function(){
     return merge({
       links: {
         self: this.apiUrl()
       },
       id: this.get('id'),
-      email: this.get('email'),
-      username: this.get('username'),
-      user_role: this.get('user_role'),
-      status: this.get('status')
-    }, this.relations);
+      username: this.get('username')
+    }, {relations: this.relations});
   },
   safe_for_users_list: function(){
-    return {
+    return merge({
       links: {
         self: this.apiUrl()
       },
       id: this.get('id'),
-      email: this.get('email'),
-      username: this.get('username'),
-      user_role: this.get('user_role'),
-      status: this.get('status')
-    };
+      username: this.get('username')
+    }, {relations: this.relations});
   }
 });
 

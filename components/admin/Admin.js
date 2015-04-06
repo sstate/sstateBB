@@ -20,10 +20,13 @@ var Admin = React.createClass({
   },
 
   render: function(){
-    var View = this.props.data.child_view ? this.props.data.child_view : Router.RouteHandler;
+    var View = typeof window !== 'undefined' ? Router.RouteHandler : function() {
+      return (<div></div>);
+    };
+
     return (
       <div>
-        <View data={this.props.data} />
+        <View />
       </div>
     );
   }

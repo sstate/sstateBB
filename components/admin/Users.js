@@ -1,29 +1,51 @@
 'use strict';
 
 var React = require('react');
+var Freighter = require('freighter');
+var UsersStore = require('./../../stores/UsersStore');
+var AdminActionCreator = require('./../../actions/AdminActionCreator');
 
 var AdminUsers = React.createClass({
 
-  render: function(){
-    var data = this.props.data;
+  mixins: [Freighter],
+  stores: [UsersStore],
 
-    //var userRoles = _.each(data.user_roles, function(role){
-    //  return (
-    //    <option value={role}>{role}</option>
-    //  );
-    //});
-    console.log(data.user_roles)
-    var users = data.users.map(function(user){
+  componentDidMount: function(){
+    AdminActionCreator.getUsers();
+  },
+
+  getStateFromStores: function(){
+    return UsersStore.getStateData();
+  },
+
+  componentWillUnmount: function(){
+    AdminActionCreator.getUsers();
+  },
+
+  render: function(){
+    var data = this.state.data || {users: {data: []}};
+    var users_data = data.users.data;
+    var userRoles = function(){
+      var roles = data.user_roles.map(function(role){
+        return (
+          <option key={role.id} value={role.id}>{role.name}</option>
+        );
+      });
+      return (
+        <select name="user_role">
+          {roles}
+        </select>
+      );
+    };
+    var users = users_data.map(function(user){
       return (
         <form id={'user-'+user.id} key={user.id}>
-          <select name="user_role">
-
-          </select>
+          {userRoles}
           <tr>
             <td>{user.id}</td>
             <td>{user.username}</td>
-            <td><input type="text" name="status" value={user.status}/></td>
-            <td><input type="text" name="user_role" value={user.user_role}/></td>
+            <td><input type="text" name="status" value={user.relations.status.id}/>{user.relations.status.name}</td>
+            <td><input type="text" name="user_role" value={user.relations.user_role.id}/>{user.relations.user_role.name}</td>
             <td><button type="submit">save</button></td>
           </tr>
         </form>
