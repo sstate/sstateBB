@@ -18,7 +18,7 @@ var Role = db.Model.extend({
         self: this.apiUrl()
       },
       id: this.get('id'),
-      username: this.get('name')
+      name: this.get('name')
     });
   }
 });

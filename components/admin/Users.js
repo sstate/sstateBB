@@ -25,14 +25,14 @@ var AdminUsers = React.createClass({
     var data = this.state;
     var users_data = data.users.data;
     var user_roles = data.roles.data;
-    var userRoles = function(){
-      var roles = data.user_roles.map(function(role){
+    var userRoles = function(id){
+      var roles = user_roles.map(function(role){
         return (
           <option key={role.id} value={role.id}>{role.name}</option>
         );
       });
       return (
-        <select name="user_role">
+        <select name="user_role" value={id}>
           {roles}
         </select>
       );
@@ -40,12 +40,12 @@ var AdminUsers = React.createClass({
     var users = users_data.map(function(user){
       return (
         <form id={'user-'+user.id} key={user.id}>
-          {userRoles}
+
           <tr>
             <td>{user.id}</td>
             <td>{user.username}</td>
             <td><input type="text" name="status" value={user.relations.status.id}/>{user.relations.status.name}</td>
-            <td><input type="text" name="user_role" value={user.relations.user_role.id}/>{user.relations.user_role.name}</td>
+            <td>{userRoles(user.relations.user_role.id)}</td>
             <td><button type="submit">save</button></td>
           </tr>
         </form>
