@@ -3,28 +3,28 @@
 var React = require('react');
 var Freighter = require('freighter');
 var UsersStore = require('./../../stores/UsersStore');
+var UserRolesStore = require('./../../stores/UserRolesStore');
 var AdminActionCreator = require('./../../actions/AdminActionCreator');
+var merge = require('amp-merge');
 
 var AdminUsers = React.createClass({
 
   mixins: [Freighter],
-  stores: [UsersStore],
-
-  componentDidMount: function(){
-    AdminActionCreator.getUsers();
-  },
+  stores: [UsersStore, UserRolesStore],
 
   getStateFromStores: function(){
-    return UsersStore.getStateData();
+    return merge(UsersStore.getStateData().data, UserRolesStore.getStateData().data);
   },
 
-  componentWillUnmount: function(){
+  componentDidMount: function(){
+    AdminActionCreator.getUserRoles();
     AdminActionCreator.getUsers();
   },
 
   render: function(){
-    var data = this.state.data || {users: {data: []}};
+    var data = this.state;
     var users_data = data.users.data;
+    var user_roles = data.roles.data;
     var userRoles = function(){
       var roles = data.user_roles.map(function(role){
         return (
@@ -52,22 +52,22 @@ var AdminUsers = React.createClass({
       );
     });
     return (
-        <div>
-          <table className="table-outlined table-with-hover">
-            <thead>
-              <tr>
-                <th>#id</th>
-                <th>username</th>
-                <th>status</th>
-                <th>role</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
+      <div>
+        <table className="table-outlined table-with-hover">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>username</th>
+              <th>status</th>
+              <th>role</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
               {users}
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
+      </div>
     );
   }
 });

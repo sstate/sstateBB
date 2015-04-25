@@ -16,16 +16,8 @@
     "lint": "eslint ./",
     "test": "jest"
   },
-  "browserify": {
-    "transform": [
-      [
-        "reactify",
-        "babelify",
-        {
-          "ext": ".js"
-        }
-      ]
-    ]
+  "browser": {
+    "request": "browser-request"
   },
   "jest": {
     "scriptPreprocessor": "./util/jest_preprocessor.js",

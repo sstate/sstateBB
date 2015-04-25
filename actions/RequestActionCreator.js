@@ -2,6 +2,7 @@
 var LCARS = require('lcars');
 var RequestConstants = require('./../constants/RequestConstants');
 var merge = require('amp-merge');
+var request = require('request');
 
 var _dispatchOptimisticAction = function(request_settings) {
   var action = {
@@ -61,26 +62,23 @@ var _dispatchErrorAction = function(request_settings, api_data, status_code) {
 
 var RequestActionCreator = {
 
-  request: function(settings){
-    var request = new XMLHttpRequest();
-    request.open(settings.type, settings.url, true);
-    request.onload = function() {
-      if (request.status >= 200 && request.status < 400) {
-        if (settings.dataType.toLowerCase() === 'json'){
-          settings.success(JSON.parse(request.responseText), request.status, request.response);
-        }
-      } else {
-        if (settings.dataType.toLowerCase() === 'json'){
-          settings.error(JSON.parse(request.responseText), request.status, request.response);
-        }
+  response: function(settings){
+
+    var onResponse = function(error, response, body) {
+      if (error){
+        return settings.error(error.message, response.status, response);
       }
+      return settings.success(body, response.status, response);
     };
-    request.onerror = function() {
-      throw new Error('There was a problem with the request');
-    };
-    request.send();
+
+    request({
+      method: settings.type,
+      url: settings.url,
+      json: settings.dataType === 'json'
+    }, onResponse);
+
   },
-  ajax: function(settings) {
+  request: function(settings) {
     var default_settings = {
       type: 'GET',
       dataType: 'json'
@@ -90,7 +88,7 @@ var RequestActionCreator = {
 
     _dispatchOptimisticAction(settings);
 
-    this.request({
+    this.response({
       type: settings.type,
       url: settings.url,
       data: settings.data,

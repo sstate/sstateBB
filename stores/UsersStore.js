@@ -4,6 +4,7 @@ var LCARS = require('lcars');
 var CargoBay = require('cargo-bay');
 var merge = require('amp-merge');
 var AdminConstants = require('./../constants/AdminConstants');
+var UserRolesStore = require('./UserRolesStore');
 
 var Userdata = {
   _data: {
@@ -31,6 +32,7 @@ var UsersStore = merge(CargoBay, {
 UsersStore.dispatchToken = LCARS.register(function(action){
   switch(action.type){
     case AdminConstants.Users.GET_USERS_SUCCEDED:
+      LCARS.waitFor([UserRolesStore.dispatchToken]);
       UsersStore.getUsers(action.data);
       UsersStore.emitChange();
       break;

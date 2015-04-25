@@ -31,5 +31,7 @@ var routes = (
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-  React.render(<Handler />, document.getElementById('main'));
+  [].forEach.call(document.querySelectorAll('.main, .admin'), function(el) {
+    React.render(<Handler />, el);
+  });
 });

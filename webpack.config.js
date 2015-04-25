@@ -21,6 +21,10 @@ module.exports = {
 
   entry: './public/js/index',
 
+  resolve: {
+    packageAlias: "browser"
+  },
+
   output: {
     path: './public/dist/',
     filename: '_bundle.js'

@@ -19,6 +19,7 @@ var Layout = React.createClass({
 
   render: function () {
     var data = this.props.data;
+    data.user_role = data.user_role || {};
     var View = this.props.view ? this.props.view : Router.RouteHandler;
     return (
         <div>
@@ -27,7 +28,7 @@ var Layout = React.createClass({
             <nav className="top-nav top-nav-light cf" role="navigation">
               <ul className="list-unstyled list-inline cf">
                 <li><a href="/">index</a></li>
-                {this.props.data.user_role.name === 'admin' ?
+                {data.user_role.name === 'admin' ?
                   <li className="has-dropdown">
                     <a href="/admin">admin</a>
                     <div className="icon-arrow-down"></div>
